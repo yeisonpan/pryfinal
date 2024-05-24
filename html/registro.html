@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/cssRegistro.css">
-    <link rel="stylesheet" href="../css/cssinicio.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>registro de productos</title>
 </head>
 <body>
         <header>
-            <h1><img src="../img/logo.jpg" alt="alibobo"></h1>
+            <img src="../img/logo.jpg" alt="alibobo">
             <nav>
                 <ul>
                     <li><a href="../index.html">Inicio</a></li>
                     <li><a href="../html/inicio.html">Productos</a></li>
-                    <li><a href="../html/acerca.html">Acerca de</a></li>
+                    <li><a href="../html/acerca.html">Indicaciones</a></li>
                     <li><a href="../html/registro.html">Registro</a></li>
                 </ul>
             </nav>
@@ -22,7 +21,7 @@
     <br>
     <br>
     <main class="container">
-        <h1 class="mt-4">Registro de Productos</h1>
+        <h1>Registro de Productos</h1>
         <form id="productForm" enctype="multipart/form-data"><br>
             <div class="form-group">
                 <label for="nombre">Nombre del producto</label>
@@ -49,19 +48,24 @@
             </div><br>
             <div id="additionalFields"></div>
             <div class="form-group">
-                <label for="cantidad">Cantidad de productos</label>
-                <input type="text" id="cantidad" name="cantidad" placeholder="Ingrese el código del producto" class="form-control"><br><br>
+                <label for="cantidad">codigo de productos</label>
+                <input type="text" id="codigo" name="cantidad" placeholder="Ingrese el código del producto" class="form-control"><br><br>
             </div><br>
+            <div class="btn_grupo">
+                <button type="submit" class="r" onclick="agregarproducto()">Registrar Producto</button>
+                <button type="reset" class="l" onclick="limpiarCampos()">Limpiar Campos</button>
+                <button type="button" id="mostrarBtn" onclick="mostrarProductos()">Mostrar Productos</button>
+                <button type="button" id="eliminarBtn" onclick="eliminar()">eliminar Productos</button>
+            </div>
+        
         </form>    
     </main>
     <br>
     <br>
-    <div class="btn_grupo">
-        <button type="submit" class="r" onclick="agregarproducto()">Registrar Producto</button>
-        <button type="reset" class="l" onclick="limpiarCampos()">Limpiar Campos</button>
-        <button type="button" id="mostrarBtn" onclick="mostrarProductos()">Mostrar Productos</button>
-        <button type="button" id="eliminarBtn" onclick="eliminar()">eliminar Productos</button>
-    </div>
+    
+    <footer class="Pie">
+        <p>&copy; 2024 Alibobo Tienda Online</p>
+    </footer>
     <!-- <script src="../js/jsRegistro.js" ></script> -->
     <script src="../js/scrip.js" ></script>
     

@@ -1,5 +1,5 @@
-let productos = JSON.parse(localStorage.getItem("productos")) || [];
-//let productos = JSON.parse(localStorage.getItem("productos"));
+
+let productos = JSON.parse(localStorage.getItem("productos"));
 const text = document.getElementById('buscar');
 const catalogoContainer1 = document.getElementById("catalogo1");
 const catalogoContainer12 = document.getElementById("catalogo2");
@@ -30,7 +30,6 @@ function buscar() {
                         <h3>${producto.nombre}</h3>
                         <p>Precio: $${producto.precio}</p>
                         <p>Categoria: ${producto.tipo}</p>
-                        <p>Cantidad disponible: <span class="cantidad">${producto.cantidad}</span></p>
                         <p>${producto.agotado ? 'Agotado' : 'Disponible'}</p>
                         <button class="boton" type="button">Comprar</button>
                     </div>
@@ -41,22 +40,22 @@ function buscar() {
                 }
             });
 
-            resolve(productosFiltrados); // Resolvemos la promesa con los productos filtrados
-        }, 3000); // Tiempo de espera de 1000 milisegundos (1 segundo)
+            resolve(productosFiltrados); 
+        }, 3000); 
     });
 }
 
 
 function marcarAgotados() {
     productos.forEach(producto => {
-        if (producto.cantidad === 0) {
+        if (producto.codigo === 0) {
             producto.agotado = true;
         }
     });
 }
 
 productos.forEach(producto => {
-    // const catalogoContainer = document.getElementById("catalogo");
+    
     let productoHTML = `
         <div class="producto">
             <div class="imagen">
@@ -65,8 +64,7 @@ productos.forEach(producto => {
             <h3>${producto.nombre}</h3>
             <p>Precio: $${producto.precio}</p>
             <p>Categoria: ${producto.tipo}</p>
-            <p>Cantidad disponible: <span class="cantidad">${producto.cantidad}</span></p>
-            <p>${producto.agotado ? 'Agotado' : 'Disponible'}</p>
+            <p>codigo: ${producto.codigo}</p>
             <button class="boton" type="button">Comprar</button>
         </div>
     `;
@@ -82,26 +80,25 @@ document.querySelectorAll('.boton').forEach(boton => {
     });
 });
 function aumentarCarrito(carritoSpan) {
-    // Verificar que el elemento cantidadSpan no sea null
+    
     if (carritoSpan) {
-        // Obtener el número actual del <span> como un entero
-        let cantidad = parseInt(carritoSpan.textContent);
+       
+        let codigo = parseInt(carritoSpan.textContent);
 
-        // Asegurarse de que cantidad sea un número válido
-        if (!isNaN(cantidad)) {
-            // Aumentar la cantidad en 1
-            cantidad++;
+        
+        if (!isNaN(codigo)) {
+            
+            codigo++;
 
-            // Actualizar el contenido del <span> con la nueva cantidad
-            carritoSpan.textContent = cantidad;
+           
+            carritoSpan.textContent = codigo;
         } else {
             console.error('El contenido del <span> no es un número válido');
         }
     } else {
-        console.error('El elemento con clase "cantidad" no existe');
+        console.error('El elemento con clase "codigo" no existe');
     }
 }
-
 
 function mostrarProductos() {
     let productosGuardados = localStorage.getItem('productos');
@@ -117,40 +114,46 @@ function eliminar(){
     localStorage.setItem('productos', JSON.stringify(productos));
 
 }
+function isValidPassword(password) {
+    const minLength = 8;
+    const hasLowercase = /[a-z]/.test(password);
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const numCount = (password.match(/\d/g) || []).length;
 
+    return password.length >= minLength && hasLowercase && hasUppercase && numCount >= 2;
+}
 function agregarproducto() {
     console.log('Iniciando función agregarproducto');
 
-    // Obtener los valores de los campos del formulario
     const nombre = document.getElementById('nombre').value.trim();
     const select = document.getElementById('categoria');
     const valorSeleccionado = select.value;
     const textoSeleccionado = select.options[select.selectedIndex].text;
     const precio = document.getElementById('precio').value.trim();
-    const cantidad = document.getElementById('cantidad').value.trim();
-    const imagen = document.getElementById('imagen').files[0]; // Obtener el archivo de imagen
+    const codigo = document.getElementById('codigo').value.trim();
+    const imagen = document.getElementById('imagen').files[0]; // Obtener el archivo de imagen codigo copiado
+    console.log('Valores obtenidos del formulario:', { nombre, valorSeleccionado, textoSeleccionado, precio, codigo, imagen });
 
-    console.log('Valores obtenidos del formulario:', { nombre, valorSeleccionado, textoSeleccionado, precio, cantidad, imagen });
-
-    // Validar los datos del formulario
-    if (!nombre) {
-        console.error('El campo nombre está vacío.');
-        alert('Por favor, ingrese un nombre.');
+    
+    if (!nombre || !(nombre.length < 21)) {
+        console.error('El campo nombre está vacío o es mayor a 20 caracteres.');
+        alert('Por favor, ingrese un nombre o un nombre menor a 20 caracteres.');
         return;
     }
     if (!valorSeleccionado) {
         console.error('No se ha seleccionado una categoría.');
         alert('Por favor, seleccione una categoría.');
-        return;
+        return; 
     }
     if (!precio || isNaN(precio)) {
         console.error('El campo precio está vacío o no es un número válido.');
         alert('Por favor, ingrese un precio válido.');
         return;
     }
-    if (!cantidad || isNaN(cantidad)) {
-        console.error('El campo cantidad está vacío o no es un número válido.');
-        alert('Por favor, ingrese una cantidad válida.');
+    if (!codigo || !isValidPassword(codigo)) {
+        console.error('El campo codigo está vacío o no es un codigo valido.');
+        alert('Por favor, ingrese un codigo válido.');
         return;
     }
     if (!imagen) {
@@ -163,7 +166,7 @@ function agregarproducto() {
     const newProducto = {
         nombre: nombre,
         tipo: textoSeleccionado,
-        cantidad: parseInt(cantidad),
+        codigo: parseInt(codigo),
         precio: parseFloat(precio),
         imagen: URL.createObjectURL(imagen) // Crear una URL para la imagen, sacado de chat gpt
     };
@@ -173,16 +176,6 @@ function agregarproducto() {
     console.log('Producto agregado:', newProducto);
     console.log('Longitud del array productos:', productos.length);
     console.log('Contenido del array productos:', productos);
-
-    // Limpiar el formulario después de agregar el producto
-    document.getElementById('nombre').value = '';
-    document.getElementById('categoria').selectedIndex = 0;
-    document.getElementById('precio').value = '';
-    document.getElementById('cantidad').value = '';
-    document.getElementById('imagen').value = '';
-
-    console.log('Formulario limpiado');
-
     // Almacenar los productos en localStorage for chat gpt profe esto no sabia que existia
     localStorage.setItem('productos', JSON.stringify(productos));
 }
@@ -193,7 +186,7 @@ function limpiarCampos() {
     document.getElementById('categoria').selectedIndex = 0;
     document.getElementById('precio').value = '';
     document.getElementById('imagen').value = '';
-    document.getElementById('cantidad').value = '';
+    document.getElementById('codigo').value = '';
     // Opcionalmente, puedes restablecer el valor seleccionado del motivo a su valor predeterminado
     
 }
@@ -224,8 +217,7 @@ function updateContent() {
             <h3>${producto.nombre}</h3>
             <p>Precio: $${producto.precio}</p>
             <p>Categoría: ${producto.tipo}</p>
-            <p>Cantidad disponible: ${producto.cantidad}</p>
-            <p>${producto.agotado ? 'Agotado' : 'Disponible'}</p>
+            <p>codigo: ${producto.codigo}</p>
             <button class="boton" type="button" id="mostrarBtn" onclick="aumentar()">Comprar</button>
         </div>
     `).join('');

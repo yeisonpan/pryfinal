@@ -4,35 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acerca de Alibobo</title>
-    <link rel="stylesheet" href="../css/acercaCss.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <header>
-        <h1><img src="../img/logo.jpg" alt="alibobo"></h1>
+        <img src="../img/logo.jpg" alt="alibobo">
         <nav>
             <ul>
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="../html/inicio.html">Productos</a></li>
-                <li><a href="../html/acerca.html">Acerca de</a></li>
+                <li><a href="../html/acerca.html">Indicaciones</a></li>
                 <li><a href="../html/registro.html">Registro</a></li>
             </ul>
         </nav>
     </header>
     
     <section class="about">
-        <div class="container">
+        <main>
+            <h1>Indicaciones de registro de productos</h1>
+            <section>
+                <h2>Cómo Crear un Producto</h2>
+                <p>Siga los pasos a continuación para crear un nuevo producto:</p>
+                <ol class="lista-registro">
+                    <li>Vaya a la página de registro de productos.</li>
+                    <li>Complete el formulario con los detalles del producto.</li>
+                    <li>El nombre debe ser menos de 20 caracteres</li>
+                    <li>El precio debe ser solo numero e igul la cantidad</li>
+                    <li>El codigo debe contener por lo menos 2 numeros una mayuscula y una minuscula con una longitud minima de 8 caracteres</li>
+                    <li>Guarde el producto para que se almacene en la base de datos.</li>
+                </ol>
+                <br>
+                <button onclick="window.location.href='registro.html'">Registrar Producto</button>
+            </section>
+        </main>
+        <main class="container">
             <h2>Acerca de Alibobo</h2>
             <p>En Alibobo, nos apasiona proporcionar productos que no solo satisfacen las necesidades de nuestros clientes, sino que también tienen un impacto positivo en el planeta. Nos comprometemos a ofrecer una amplia gama de artículos que promuevan un estilo de vida más comodo.</p>
             <p>Desde nuestros inicios, hemos estado en una misión para fomentar un cambio hacia prácticas comerciales más responsables y sostenibles. Trabajamos en estrecha colaboración con proveedores que comparten nuestros valores y criterios de sostenibilidad, asegurándonos de que cada producto que ofrecemos cumpla con los más altos estándares de calidad</p>
             <p>En Alibaba, creemos que cada elección cuenta, y estamos comprometidos a inspirar a nuestros clientes a tomar decisiones informadas y éticas al realizar sus compras. Creemos en un futuro en el que el consumo responsable sea la norma, y estamos orgullosos de ser parte de ese cambio.</p>
             <p>Únete a nosotros en nuestro viaje hacia un mundo más globalizado. ¡Juntos podemos marcar la diferencia!</p>
-        </div>
+        </main>
     </section>
 
     <footer>
-        <div class="container">
             <p>&copy; 2024 Alibobo - Todos los derechos reservados.</p>
-        </div>
     </footer>
 </body>
 </html>
