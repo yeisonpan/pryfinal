@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alibobo - Productos a bajos precios</title>
+    <link rel="stylesheet" href="./css/iniciocss.css">
+    <link rel="stylesheet" href="../css/cssCatalogo.css">
+</head>
+<body>
+    <header>
+        <h1><img src="./img/logo.jpg" alt="alibobo"></h1>
+        <nav>
+            <ul>
+                <li><a href="./index.html">Inicio</a></li>
+                <li><a href="./html/inicio.html">Productos</a></li>
+                <li><a href="./html/acerca.html">Acerca de</a></li>
+                <li><a href="./html/registro.html">Registro</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="productos">
+        <h2>Nuestros Productos</h2>
+        <!-- Aquí se listarían los productos -->
+    </section>
+    
+    <div class="nav-buttons">
+        <button id="prevBtn" class="nav-btn" onclick="prevItem()" >Atrás</button>
+        <button id="nextBtn" class="nav-btn" onclick="nextItem()" >Siguiente</button>
+    </div>
+
+    <div id="catalogo" class="catalogo"></div>
+
+    <footer>
+        <p>&copy; 2024 Alibobo - Todos los derechos reservados.</p>
+    </footer>
+    <script src="./js/scrip.js"></script>
+</body>
+</html>

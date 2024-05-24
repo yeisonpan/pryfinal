@@ -1,0 +1,124 @@
+.logo{
+border-color: brown;
+border: 5px;
+}
+.buscar{
+    border-color: brown;
+    border: 5px;
+    }
+.carrito{
+        border-color: brown;
+        background-image: url(../img/carrito.jpg);
+        background-size: cover;
+        height: 40px;
+        width: 50px;
+        border: 5px;  
+}
+.color{
+  background-color: #000000;
+}
+.padre-padre{
+  display: flex;
+  justify-content: space-between;
+}
+.padre{
+  display: flex;
+  
+  
+}     
+.header{
+    display: block;
+    background-color: black;
+    padding: 20px;
+    justify-content: space-between;
+    
+}
+header {
+  background-color: #000000;
+  color: #fff;
+  padding: 20px;
+}
+nav{
+  padding-top: 10px;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  background-color: #333;
+  border-radius: 5px;
+  padding: 7px;
+}
+
+.Pie{
+    background-color: rgb(216, 207, 194);
+    border-radius: 5px;
+    height: 200px;
+} 
+.productos{
+    height: 400px;
+}         
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    border-radius: 20px;
+    padding: 5px;
+    height: 30px;
+    width: 250px; /* Ajusta este valor según necesites */
+  }
+  
+  .search-input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 20px;
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+  }
+  
+  .search-button {
+    background-color: #444; /* Un tono ligeramente diferente para el botón, si lo prefieres */
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    padding: 10px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .search-button img {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+  
+  /* Añade este estilo para quitar los estilos por defecto de los botones en iOS */
+  .search-button::-moz-focus-inner {
+    border: 0;
+  }
+  
+  /* Considera añadir algún efecto al hacer hover en el botón para una mejor interactividad */
+  .search-button:hover {
+    background-color: #555;
+  }
+  
+  /* Asegúrate de que el ícono de la lupa tenga un alto contraste para fácil visualización */
+  .search-button img {
+    filter: invert(1);
+  }
+
+ 
