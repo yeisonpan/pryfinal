@@ -20,17 +20,46 @@
             </ul>
         </nav>
     </header>
-    <section class="productos">
-        <h2>Nuestros Productos</h2>
-        <!-- Aquí se listarían los productos -->
-    </section>
-    
-    <div class="nav-buttons">
-        <button id="prevBtn" class="nav-btn" onclick="prevItem()" >Atrás</button>
-        <button id="nextBtn" class="nav-btn" onclick="nextItem()" >Siguiente</button>
-    </div>
+    <main class="main">
+        <h1>nuestros productos</h1>
+        <br>
+        <div class="bucontainer">
+            <button onclick="filtrarTabla()">filtrar</button>
+            <p>precio:</p>
+            <select name="filtro1" id="filtro1">
+                <option value="">Seleccione un precio</option>
+                <option value="1">Menor a mayor precio</option>
+                <option value="2">Mayor a menor precio</option>
+                <option value="3">Entre 0 a 300</option>
+                <option value="4">Entre 300 a 800</option>
+                <option value="5">Mas de 800</option>
+            </select>
+            <p>categoria:</p>
+            <select name="filtro2" id="filtro2">
+                <option value="">Seleccione una categoría</option>
+                <option value="1">electronica</option>
+                <option value="2">Cuidado personal</option>
+                <option value="3">mecanica</option>
+                <option value="4">varios</option>
+                <option value="5">ejercicio</option>
+            </select>
+        </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>tipo</th>
+                <th>cantidad</th>
+                <th>precio</th>
+                <th>imagen</th>
+                <th>codigo</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
 
-    <div id="catalogo" class="catalogo"></div>
+        </tbody>
+    </table>
+    </main>
 
     <footer>
         <p>&copy; 2024 Alibobo - Todos los derechos reservados.</p>

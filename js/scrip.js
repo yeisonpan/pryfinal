@@ -7,10 +7,28 @@ const contentContainer = document.getElementById('catalogo');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const mostrarBtn =document.getElementById('mostrarBtn');
+const page_num = document.getElementById('numero-pagina'); 
+
 let currentIndex = 0;
-const productosPorPagina = 5;
+const productosPorPagina = 15;
 
-
+function filtrarTabla(){
+    const tableBody = document.getElementById('tableBody');
+    productos.forEach(function(row) {
+        let tr = document.createElement('tr');
+    
+        // Iterar sobre las propiedades del objeto
+        for (let key in row) {
+            if (row.hasOwnProperty(key)) {
+                let td = document.createElement('td');
+                td.textContent = row[key]; // Establece el contenido de texto de la celda con el valor de la propiedad
+                tr.appendChild(td); // Añade la celda a la fila
+            }
+        }
+    
+        tableBody.appendChild(tr); // Añade la fila completa al cuerpo de la tabla
+    });
+}
 function buscar() {
     catalogoContainer1.remove();
     return new Promise((resolve, reject) => {
@@ -41,7 +59,7 @@ function buscar() {
             });
 
             resolve(productosFiltrados); 
-        }, 3000); 
+        }, 2000); 
     });
 }
 
@@ -227,12 +245,11 @@ function updateContent() {
         prevBtn.disabled = currentIndex === 0;
         nextBtn.disabled = fin >= productos.length;
       }
+      if (page_num) {
+        page_num.textContent = `Página ${currentIndex + 1}`;
+    }
     
 }
-
-
-
-
 marcarAgotados();
 updateContent();
 //bibliografia

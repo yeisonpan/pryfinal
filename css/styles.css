@@ -224,7 +224,7 @@ nav{
     font-size: 16px;
 }
 
-/* ------------------------------------------aca---------------------- */
+/* ------------------------------------------diseño de los main---------------------- */
  main {
     max-width: 800px;
     margin: 20px auto;
@@ -250,5 +250,50 @@ button {
 
 button:hover {
     background-color: #555;
+}
+
+/* --------------------------------------estilo de la tabla---------------------------------- */
+.main {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.bucontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #000000;
+  color: white;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+td img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 }
  
