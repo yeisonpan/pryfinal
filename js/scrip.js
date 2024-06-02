@@ -1,34 +1,118 @@
-
-let productos = JSON.parse(localStorage.getItem("productos"));
+let productos = JSON.parse(localStorage.getItem("productos")) || [];
 const text = document.getElementById('buscar');
 const catalogoContainer1 = document.getElementById("catalogo1");
 const catalogoContainer12 = document.getElementById("catalogo2");
 const contentContainer = document.getElementById('catalogo');
+const prevBtnt = document.getElementById('prevBtnt');
+const nextBtnt = document.getElementById('nextBtnt');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
-const mostrarBtn =document.getElementById('mostrarBtn');
-const page_num = document.getElementById('numero-pagina'); 
+const mostrarBtn = document.getElementById('mostrarBtn');
+const page_num = document.getElementById('numero-pagina');
 
+let productosFiltrados = [];
 let currentIndex = 0;
 const productosPorPagina = 15;
+const productosPorPaginaTabla = 6;
 
-function filtrarTabla(){
-    const tableBody = document.getElementById('tableBody');
-    productos.forEach(function(row) {
-        let tr = document.createElement('tr');
-    
-        // Iterar sobre las propiedades del objeto
-        for (let key in row) {
-            if (row.hasOwnProperty(key)) {
-                let td = document.createElement('td');
-                td.textContent = row[key]; // Establece el contenido de texto de la celda con el valor de la propiedad
-                tr.appendChild(td); // Añade la celda a la fila
-            }
-        }
-    
-        tableBody.appendChild(tr); // Añade la fila completa al cuerpo de la tabla
-    });
+function prevItemt() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        filtrarTabla();
+    }
 }
+
+function nextItemt() {
+    if ((currentIndex + 1) * productosPorPaginaTabla < productosFiltrados.length) {
+        currentIndex++;
+        filtrarTabla();
+    }
+}
+
+function filtrarTabla() {
+    if(prevBtnt && nextBtnt){
+        const filtro1 = document.getElementById("filtro1").value;
+        const filtro2 = document.getElementById("filtro2").value;
+        const tableBody = document.getElementById('tableBody'); 
+    
+    productosFiltrados = [...productos]; // Copiar el arreglo de productos
+    const inicio = currentIndex * productosPorPaginaTabla;
+    const fin = inicio + productosPorPaginaTabla;
+
+    if (filtro1) {
+        switch (filtro1) {
+            case "1":
+                productosFiltrados.sort((a, b) => a.precio - b.precio);
+                break;
+            case "2":
+                productosFiltrados.sort((a, b) => b.precio - a.precio);
+                break;
+            case "3":
+                productosFiltrados = productosFiltrados.filter(producto => producto.precio >= 0 && producto.precio <= 300);
+                break;
+            case "4":
+                productosFiltrados = productosFiltrados.filter(producto => producto.precio > 300 && producto.precio <= 800);
+                break;
+            case "5":
+                productosFiltrados = productosFiltrados.filter(producto => producto.precio > 800);
+                break;
+        }
+    }
+
+    if (filtro2) {
+        let tipo = "";
+
+        switch (filtro2) {
+            case "1":
+                tipo = "electronica";
+                break;
+            case "2":
+                tipo = "cuidado personal";
+                break;
+            case "3":
+                tipo = "mecanica";
+                break;
+            case "4":
+                tipo = "varios";
+                break;
+            case "5":
+                tipo = "ejercicio";
+                break;
+        }
+
+        productosFiltrados = productosFiltrados.filter(producto => producto.tipo === tipo);
+    }
+    if (tableBody) {
+        tableBody.innerHTML = productosFiltrados.slice(inicio, fin).map(producto => `
+            <tr>
+                <td>${producto.nombre}</td>
+                <td>${producto.tipo}</td>
+                <td>${producto.cantidad}</td>
+                <td>${producto.precio}</td>
+                <td><img src="${producto.imagen}" alt="${producto.nombre}" width="50"></td>
+                <td>${producto.codigo}</td>
+            </tr>
+        `).join('');
+    }
+
+    if (prevBtnt && nextBtnt) {
+        prevBtnt.disabled = currentIndex === 0;
+        nextBtnt.disabled = fin >= productosFiltrados.length;
+    }
+
+    if (page_num) {
+        page_num.textContent = `Página ${currentIndex + 1}`;
+    }
+    
+}}
+
+
+
+// // Inicializar la tabla al cargar la página
+// document.addEventListener('DOMContentLoaded', () => {
+//     filtrarTabla();
+    
+// });
 function buscar() {
     catalogoContainer1.remove();
     return new Promise((resolve, reject) => {
@@ -72,25 +156,6 @@ function marcarAgotados() {
     });
 }
 
-productos.forEach(producto => {
-    
-    let productoHTML = `
-        <div class="producto">
-            <div class="imagen">
-                <img src="${producto.imagen}" alt="${producto.nombre}">
-            </div>
-            <h3>${producto.nombre}</h3>
-            <p>Precio: $${producto.precio}</p>
-            <p>Categoria: ${producto.tipo}</p>
-            <p>codigo: ${producto.codigo}</p>
-            <button class="boton" type="button">Comprar</button>
-        </div>
-    `;
-    if(catalogoContainer1){
-        catalogoContainer1.innerHTML += productoHTML;
-    }
-    
-});
 document.querySelectorAll('.boton').forEach(boton => {
     boton.addEventListener('click', (event) => {
         const carritoSpan = document.querySelector('.carrito');
@@ -117,7 +182,7 @@ function aumentarCarrito(carritoSpan) {
         console.error('El elemento con clase "codigo" no existe');
     }
 }
-
+// -----------------------esto no lo ocupo---------------
 function mostrarProductos() {
     let productosGuardados = localStorage.getItem('productos');
     if (productosGuardados) {
@@ -132,7 +197,8 @@ function eliminar(){
     localStorage.setItem('productos', JSON.stringify(productos));
 
 }
-function isValidPassword(password) {
+function codigoValido(password) {
+    //esto tampoco sabia que existia lo saque de chat gpt pero aprendo en el proceso
     const minLength = 8;
     const hasLowercase = /[a-z]/.test(password);
     const hasUppercase = /[A-Z]/.test(password);
@@ -150,7 +216,7 @@ function agregarproducto() {
     const textoSeleccionado = select.options[select.selectedIndex].text;
     const precio = document.getElementById('precio').value.trim();
     const codigo = document.getElementById('codigo').value.trim();
-    const imagen = document.getElementById('imagen').files[0]; // Obtener el archivo de imagen codigo copiado
+    const imagen = document.getElementById('imagen').files[0]; 
     console.log('Valores obtenidos del formulario:', { nombre, valorSeleccionado, textoSeleccionado, precio, codigo, imagen });
 
     
@@ -169,7 +235,7 @@ function agregarproducto() {
         alert('Por favor, ingrese un precio válido.');
         return;
     }
-    if (!codigo || !isValidPassword(codigo)) {
+    if (!codigo || !codigoValido(codigo)) {
         console.error('El campo codigo está vacío o no es un codigo valido.');
         alert('Por favor, ingrese un codigo válido.');
         return;
@@ -180,16 +246,15 @@ function agregarproducto() {
         return;
     }
 
-    // Crear un nuevo objeto producto
     const newProducto = {
         nombre: nombre,
         tipo: textoSeleccionado,
         codigo: parseInt(codigo),
         precio: parseFloat(precio),
-        imagen: URL.createObjectURL(imagen) // Crear una URL para la imagen, sacado de chat gpt
+        imagen: URL.createObjectURL(imagen) 
     };
 
-    // Agregar el nuevo producto al array de productos
+    
     productos.push(newProducto);
     console.log('Producto agregado:', newProducto);
     console.log('Longitud del array productos:', productos.length);
@@ -199,13 +264,13 @@ function agregarproducto() {
 }
 
 function limpiarCampos() {
-    // Limpiar campos de entrada
+   
     document.getElementById('nombre').value = '';
     document.getElementById('categoria').selectedIndex = 0;
     document.getElementById('precio').value = '';
     document.getElementById('imagen').value = '';
     document.getElementById('codigo').value = '';
-    // Opcionalmente, puedes restablecer el valor seleccionado del motivo a su valor predeterminado
+    
     
 }
 
@@ -255,3 +320,6 @@ updateContent();
 //bibliografia
 //https://www.youtube.com/watch?v=9he4OewlYFo&ab_channel=Emprinnos
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+//https://www.youtube.com/watch?v=0XzzhmMJd2A&ab_channel=Aprogramar
+//https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+//https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/join

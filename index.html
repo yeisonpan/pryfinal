@@ -24,8 +24,8 @@
         <h1>nuestros productos</h1>
         <br>
         <div class="bucontainer">
+            
             <button onclick="filtrarTabla()">filtrar</button>
-            <p>precio:</p>
             <select name="filtro1" id="filtro1">
                 <option value="">Seleccione un precio</option>
                 <option value="1">Menor a mayor precio</option>
@@ -34,7 +34,6 @@
                 <option value="4">Entre 300 a 800</option>
                 <option value="5">Mas de 800</option>
             </select>
-            <p>categoria:</p>
             <select name="filtro2" id="filtro2">
                 <option value="">Seleccione una categoría</option>
                 <option value="1">electronica</option>
@@ -44,6 +43,11 @@
                 <option value="5">ejercicio</option>
             </select>
         </div>
+        <main class="nav-buttons">
+            <button id="prevBtnt" class="nav-btn" onclick="prevItemt()" >Atrás</button>
+            <span class="numero-pagina" id="numero-pagina"></span>
+            <button id="nextBtnt" class="nav-btn" onclick="nextItemt()" >Siguiente</button>
+        </main>
     <table>
         <thead>
             <tr>
