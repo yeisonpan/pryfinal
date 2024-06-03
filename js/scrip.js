@@ -1,4 +1,5 @@
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
+console.log(productos)
 const text = document.getElementById('buscar');
 const catalogoContainer1 = document.getElementById("catalogo1");
 const catalogoContainer12 = document.getElementById("catalogo2");
@@ -14,6 +15,8 @@ let productosFiltrados = [];
 let currentIndex = 0;
 const productosPorPagina = 15;
 const productosPorPaginaTabla = 6;
+
+
 
 function prevItemt() {
     if (currentIndex > 0) {
@@ -35,7 +38,7 @@ function filtrarTabla() {
         const filtro2 = document.getElementById("filtro2").value;
         const tableBody = document.getElementById('tableBody'); 
     
-    productosFiltrados = [...productos]; // Copiar el arreglo de productos
+    productosFiltrados = [...productos];
     const inicio = currentIndex * productosPorPaginaTabla;
     const fin = inicio + productosPorPaginaTabla;
 
@@ -108,11 +111,7 @@ function filtrarTabla() {
 
 
 
-// // Inicializar la tabla al cargar la página
-// document.addEventListener('DOMContentLoaded', () => {
-//     filtrarTabla();
-    
-// });
+
 function buscar() {
     catalogoContainer1.remove();
     return new Promise((resolve, reject) => {
@@ -216,10 +215,10 @@ function agregarproducto() {
     const textoSeleccionado = select.options[select.selectedIndex].text;
     const precio = document.getElementById('precio').value.trim();
     const codigo = document.getElementById('codigo').value.trim();
-    const imagen = document.getElementById('imagen').files[0]; 
+    const imagen = document.getElementById('imagen').value; // Obtener el nombre del archivo seleccionado
+
     console.log('Valores obtenidos del formulario:', { nombre, valorSeleccionado, textoSeleccionado, precio, codigo, imagen });
 
-    
     if (!nombre || !(nombre.length < 21)) {
         console.error('El campo nombre está vacío o es mayor a 20 caracteres.');
         alert('Por favor, ingrese un nombre o un nombre menor a 20 caracteres.');
@@ -251,16 +250,16 @@ function agregarproducto() {
         tipo: textoSeleccionado,
         codigo: parseInt(codigo),
         precio: parseFloat(precio),
-        imagen: URL.createObjectURL(imagen) 
+        imagen: "../img/fotos2/"+"img" + imagen+".jpg", // Utilizar la propiedad value del elemento input
     };
 
-    
     productos.push(newProducto);
     console.log('Producto agregado:', newProducto);
     console.log('Longitud del array productos:', productos.length);
     console.log('Contenido del array productos:', productos);
-    // Almacenar los productos en localStorage for chat gpt profe esto no sabia que existia
+    // Almacenar los productos en localStorage
     localStorage.setItem('productos', JSON.stringify(productos));
+
 }
 
 function limpiarCampos() {
@@ -268,7 +267,7 @@ function limpiarCampos() {
     document.getElementById('nombre').value = '';
     document.getElementById('categoria').selectedIndex = 0;
     document.getElementById('precio').value = '';
-    document.getElementById('imagen').value = '';
+    document.getElementById('imagen').selectedIndex = 0;
     document.getElementById('codigo').value = '';
     
     
