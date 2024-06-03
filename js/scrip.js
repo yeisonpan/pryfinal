@@ -1,7 +1,7 @@
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 console.log(productos)
 const text = document.getElementById('buscar');
-const catalogoContainer1 = document.getElementById("catalogo1");
+const catalogoContainer1 = document.getElementById("catalogo");
 const catalogoContainer12 = document.getElementById("catalogo2");
 const contentContainer = document.getElementById('catalogo');
 const prevBtnt = document.getElementById('prevBtnt');
@@ -300,7 +300,7 @@ function updateContent() {
             <p>Precio: $${producto.precio}</p>
             <p>Categoría: ${producto.tipo}</p>
             <p>codigo: ${producto.codigo}</p>
-            <button class="boton" type="button" id="mostrarBtn" onclick="aumentar()">Comprar</button>
+            <button class="boton" type="button" id="boton" >Comprar</button>
         </div>
     `).join('');
     }
