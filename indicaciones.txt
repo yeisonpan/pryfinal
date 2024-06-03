@@ -1,0 +1,4 @@
+nombre: yeison stiven zuluaga sanchez
+
+para poder utilizar esta pagina se debe primero copear lo que esta en la base de datos databas.js y pegar en la primera linea de scrip.js
+despues puedes ingresar por el index y navegar libremente, casi todo el scrip esta comentado y los css separados por comentarios y sus funciones

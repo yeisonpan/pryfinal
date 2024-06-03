@@ -1,4 +1,4 @@
-let productoss = [
+const productoss = [
     { 
         nombre: "Teléfono móvil poco",
         tipo: "electronica", 
@@ -435,10 +435,6 @@ function updateAttribute(array, attribute) {
 
 const updatedArray = updateAttribute(productoss, 'codigo');
 
-productos.forEach((updatedArray) => {
-    updatedArray.descripcion = 'Este es un producto';
-    updatedArray.reseña = 'lorem'; // Agregar atributo "descripcion" a todos los objetos
-  });
 
 localStorage.setItem('productos', JSON.stringify(updatedArray));
 //profe me imagino que le va a dar error por que en su guardado local no esta el array 
