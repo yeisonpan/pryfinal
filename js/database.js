@@ -435,7 +435,6 @@ function updateAttribute(array, attribute) {
 
 const updatedArray = updateAttribute(productoss, 'codigo');
 
-
 localStorage.setItem('productos', JSON.stringify(updatedArray));
 //profe me imagino que le va a dar error por que en su guardado local no esta el array 
 //entonces copie y pegue esto en el inicio del scrip y esas funciones son pa llenar el 

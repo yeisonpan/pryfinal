@@ -154,31 +154,17 @@ function marcarAgotados() {
         }
     });
 }
-
-document.querySelectorAll('.boton').forEach(boton => {
-    boton.addEventListener('click', (event) => {
-        const carritoSpan = document.querySelector('.carrito');
-        aumentarCarrito(carritoSpan);
-    });
-});
 function aumentarCarrito(carritoSpan) {
-    
     if (carritoSpan) {
-       
         let codigo = parseInt(carritoSpan.textContent);
-
-        
         if (!isNaN(codigo)) {
-            
             codigo++;
-
-           
             carritoSpan.textContent = codigo;
         } else {
             console.error('El contenido del <span> no es un número válido');
         }
     } else {
-        console.error('El elemento con clase "codigo" no existe');
+        console.error('El elemento con id "carrito" no existe');
     }
 }
 // -----------------------esto no lo ocupo---------------
@@ -312,6 +298,12 @@ function updateContent() {
       if (page_num) {
         page_num.textContent = `Página ${currentIndex + 1}`;
     }
+    document.querySelectorAll('.boton').forEach(boton => {
+        boton.addEventListener('click', (event) => {
+            const carritoSpan = document.getElementById('carrito');
+            aumentarCarrito(carritoSpan);
+        });
+    });
     
 }
 marcarAgotados();
